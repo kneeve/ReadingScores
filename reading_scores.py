@@ -1,7 +1,9 @@
 import re
+import math
 from typing import List
 
 
+# Constants
 SENTENCE_MATCH = re.compile(r" (.*?[!.?]\"?)")
 VOWEL_GROUP_MATCH = re.compile(r"[aiou]+e*|[^aiou]e[^aiou]|[^aeiou]y$", re.I)
 
@@ -31,3 +33,11 @@ def count_polysyllabic_words_in_sentence(sentence: str) -> int:
     words = get_words_from_sentence(sentence)
     counts = map(count_syllables_in_word, words)
     return len(list(filter(lambda c: c >= 3, counts)))
+
+
+def compute_smog_score(filename: str) -> int:
+    sentences = get_sentences_from_file(filename)
+    sentence_count = len(sentences)
+    polysyllabic_word_count = sum(list(map(count_polysyllabic_words_in_sentence, sentences)))
+    # Using formula from wikipedia's SMOG score page
+    return 1.0430 * (math.sqrt(polysyllabic_word_count * (30 / sentence_count))) + 3.1291
