@@ -38,6 +38,7 @@ def count_polysyllabic_words_in_sentence(sentence: str) -> int:
 def compute_smog_score(filename: str) -> int:
     sentences = get_sentences_from_file(filename)
     sentence_count = len(sentences)
-    polysyllabic_word_count = sum(list(map(count_polysyllabic_words_in_sentence, sentences)))
-    # Using formula from wikipedia's SMOG score page
+    polysyllabic_word_count = sum(map(count_polysyllabic_words_in_sentence, sentences))
+    # Using formula from wikipedia's SMOG score page:
+    #   https://en.wikipedia.org/wiki/SMOG
     return 1.0430 * (math.sqrt(polysyllabic_word_count * (30 / sentence_count))) + 3.1291
