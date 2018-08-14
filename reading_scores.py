@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import re
 import math
 from typing import List
@@ -42,3 +44,13 @@ def compute_smog_score(filename: str) -> int:
     # Using formula from wikipedia's SMOG score page:
     #   https://en.wikipedia.org/wiki/SMOG
     return 1.0430 * (math.sqrt(polysyllabic_word_count * (30 / sentence_count))) + 3.1291
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename", help="The file will have its SMOG score computed.")
+    args = parser.parse_args()
+
+    score = compute_smog_score(args.filename)
+    print(f"The SMOG score for file {args.filename} is {score}.")
